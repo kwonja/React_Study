@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <style>
+  </style>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement=document.getElementById("root");
+
+      class ErrorBoundary extends React.Component {
+        state = {error : null}
+        static getDerivedStateFromError(error) //이 함수를 class컴퍼넌트에서만 가지고 있어서 클래스로 사용해야한다.
+        {
+          return {error};
+        }
+        render(){
+        const {error} = this.state;
+        if(error)
+        {
+          return <this.props.fallback error={error}/>; //어떤 에러나 났는지 메세지 출력
+        }
+        return this.props.children;
+      }
+      }
+      const Child = () => {
+        throw new Error('something wrong');
+        return <p>Child....</p>;
+      }
+      const Fallback = ({error}) =>{
+        return <p>{error.message}</p>;
+      }
+      const App = () =>{
+        return (
+          <>
+          <p>App</p>
+          <ErrorBoundary fallback={Fallback}>
+          <Child />
+          </ErrorBoundary>
+          </>
+        );
+      };
+      ReactDOM.render(<App />,rootElement);
+      //ErrorBoundary를 사용하면서 특정 에러가 발생하면 나머지는 실행되도록 할수 있음
+    </script>
+    
+  </body>
+</html>
+
+<script>
+  // error boundary 는 해당 부분 에러를 보여준다.
+  // FallBack라고 보통 정의하는데, 에러를 주입받아서 에러메시지를 받을수 있다.
+  //에러가 없다면 무시하고 통과
+</script>

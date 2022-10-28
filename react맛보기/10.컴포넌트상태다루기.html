@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root">
+    </div>
+    <div id ="root2"></div>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      //엘리먼트 안에 컴퍼넌트가 있는데 그 안에 있는 훅중에 useState를 배움
+      const App = () => {
+
+        const [typing, setTyping]= React.useState(false);  
+        const [result, setResult]= React.useState("");    //전역변수처럼 사용가능
+
+
+        // const [keyword,setKeyword]=React.useState("");   아래 3줄 코드를 위 코드로 바꿔서 사용 가능
+        //keyword는 우리가 사용할값 setKeyword는 우리가 keyword에 업데이트하고 싶은 값
+        const keywordState = React.useState("");
+        const keyword = keywordState[0];
+        const setKeyword = keywordState[1];
+
+        function handleChange(event){
+
+          setKeyword(event.target.value);
+          setTyping(true);
+        };
+        function handleClick(event)
+        {
+            setTyping(false);
+            setResult(`we find result of ${keyword}`);
+        };
+        return (
+        <>
+
+              <input onChange={handleChange} />
+              <button onClick={handleClick}>search</button>
+              <p>{ typing ? `Looking for ... ${keyword}` : result}</p>    
+        </>
+        );
+      };
+        ReactDOM.render(<App />,rootElement); 
+    </script>
+    
+  </body>
+</html>

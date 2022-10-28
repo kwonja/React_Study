@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root">
+    </div>
+    <div id ="root2"></div>
+    <!-- <script type="text/babel">
+
+      const rootElement = document.getElementById("root");  //children에 여러개를 넣을수 있다. -> 제이슨형태로?
+      const text="sample";
+      const element = <div className="title" children={
+        [React.createElement("h1",null,"Hi"),   //title
+        React.createElement("h3",null,"Bye"), 
+        React.createElement("h5",null,"Sample"), 
+      ]
+    }/>
+
+        ReactDOM.render(element,rootElement);
+    </script> -->
+    <script type="text/babel">
+
+      const rootElement = document.getElementById("root");  //children에 여러개를 넣을수 있다. -> 제이슨형태로?
+      const text="sample";
+    //   const element = <React.Fragment>                 //React.Fragment 를 통해 div를 생략할수 있다.
+    //     <h1>new hi</h1>
+    //     <h1>new hi</h1>
+    //     <h1>new hi</h1>
+    // </React.Fragment>
+
+    //Fragment를 생략해도 Fragment처럼 사용할수 있다.
+    // const element = <>
+    //     <h1>new hi</h1>
+    //    <h1>new hi</h1>
+    //     <h1>new hi</h1>
+    //  </>
+    //  console.log(element);
+
+    const element=<React.Fragment children={[
+      
+      <h1>Hi</h1>,  //요기부분은 props 중 하나
+      <h3>Hello</h3>
+    ]}/>
+        ReactDOM.render(element,rootElement);
+    </script>
+  </body>
+
+</html>

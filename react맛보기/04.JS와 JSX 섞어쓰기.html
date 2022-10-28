@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root">
+    </div>
+    <div id ="root2"></div>
+    <script type="text/babel">
+
+      const rootElement = document.getElementById("root");  //children에 여러개를 넣을수 있다. -> 제이슨형태로?
+      // const Text = ({text}) =>
+      // {
+      //     //text가 대문자로 시작하면 h1, 소문자로 시작하면 h3
+
+      //     if(text.charAt(0)===text.charAt(0).toUpperCase()) //순수 자바스크립트
+      //     {
+      //       return <h1> {text}</h1>;              //<JSX>   JS </JSX>
+      //     }
+      //     else
+      //     {
+      //       return <h3> {text}</h3>;
+      //     }
+      // };
+
+
+      //Fragment안에서 조건문이 성립되지 않음
+      // const Text = ({text}) =>
+      // (
+      // //Fragment 사용
+      // <>
+      // if(text.charAt(0)===text.charAt(0).toUpperCase())
+      // {
+      //   <h1>{text}</h1>
+      // }
+      // else{
+      //   <h3>{text}</h3>
+      // }
+      // </>
+      // );
+
+      // function Number({number}){        
+      //   return number % 2 == 0? <h1>{number}</h1> : <h3>{number}</h3> //삼항연산자
+
+      // }
+      const Number = ({className,number,selected}) =>{ //화살표 함수 -> 굳이 function을 사용할 필요가 없다는 차이점
+
+        return selected ? <h1 className={className} >{number}</h1> : <h3>{number}</h3>;
+      };
+
+      //              ( ) 을 사용하게되면 JSX인거같고 {}을 사용하게되면 JS인것 같다.
+    const element = (
+      //map이라는 함수를 fragment안에서 사용 가능
+      <>
+      {[1,2,3,4,5,6,7,8,9,10].map((number) => (
+
+        <Number className="title" key = {number} number={number} selected={number==3} />
+
+      ))}
+      </>
+      );
+      //Paint 태그안에 paint태그를 넣어도 childern으로 하위로 가는게 아니라 sibling으로 들어감
+      console.log(element);
+        ReactDOM.render(element,rootElement);
+
+        //자바스크립트의 장점을 React에서 element를 만들때 다 사용하고 있다.
+    </script>
+    <style>
+      .title{
+        color: red;
+      }
+    </style>
+  </body>
+
+</html>

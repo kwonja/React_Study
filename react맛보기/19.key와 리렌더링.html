@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <style>
+  </style>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement=document.getElementById("root");
+
+      const todos = [
+        [
+        {id : 1, value : "Wash dishes"},
+        {id : 2, value : "Dash dishes"},
+        {id : 3, value : "aash dishes"},
+        {id : 4, value : "bash dishes"},
+      ],
+      [
+        {id : 4, value : "bash dishes"},
+        {id : 1, value : "Wash dishes"},
+        {id : 2, value : "Dash dishes"},
+        {id : 3, value : "aash dishes"},
+      ],
+      [
+        {id : 3, value : "aash dishes"},
+        {id : 4, value : "bash dishes"},
+        {id : 1, value : "Wash dishes"},
+        {id : 2, value : "Dash dishes"},
+      ],
+      [
+        {id : 2, value : "Dash dishes"},
+        {id : 3, value : "aash dishes"},
+        {id : 4, value : "bash dishes"},
+        {id : 1, value : "Wash dishes"},
+      ]
+    ];
+      const App = () =>{
+        const [items, setItems]=React.useState(todos[0]);
+
+        React.useEffect(  () =>{
+          const interval = setInterval( () => {
+            const random = Math.floor(Math.random() *4); //Math.floor(Math.random( )) ---> random method가 뱉은 긴 소수들의 소수값들이 잘린다.Math.floor(Math.random( )*5) --->  0이상 1미만의 긴 소수들에 5를 곱하고 소수값들을 버리면 0 이상 5 미만의 정수들이 나온다.Math.floor(Math.random( )*5 + 1) --->  1이상 6미만의 정수들이 나온다. 
+            setItems(todos[random]);
+          },1000);
+
+          return () => {
+              clearInterval(interval);
+          };
+
+        },[]);
+        const handleDoneClick = (todo) =>{
+          setItems( (items)=> items.filter((item) => item !== todo)  ); //뒤에조건과 맞는 아이빼고 나머지를 다 지운다.
+        };
+        const handleRestoreClick = () =>{
+          setItems( (items) => [...items, todos.find((item) => !items.includes(item))]); 
+        };
+        return (               //key값을 넣으면 element안에있는 글씨만 바뀌는게 아니라 컴포넌트가 바뀌게됨
+                               //리렌더링에 대해 key에 대한 내용이 있다.
+          <>
+          {items.map((todo) => (
+            <div key={todo.value}>
+              <button onClick={()=>{handleDoneClick(todo)}}>{todo.value}</button>
+            </div>
+          ))}
+
+          <br/>
+          <br/>
+          <button onClick={handleRestoreClick}>Restore</button>
+          </>
+        );
+      };
+      ReactDOM.render(<App />,rootElement);
+      //key -value는 고유한값이라고 생각
+    </script>
+    
+  </body>
+</html>

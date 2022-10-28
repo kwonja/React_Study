@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+    <div id ="root2"></div>
+    <script type="text/babel">
+
+      const rootElement = document.getElementById("root");
+      const rootElement2 = document.getElementById("root2");
+      //const element = React.createElement(
+      //  "h1",
+      //{
+      //  className : "title"
+      //},
+      //["Hello,world!", "It`s me!"]
+      //);
+
+      //const element = React.createElement(
+      //  "h1",
+      //{
+      //  className : "title",
+      //  children : ["Hello,world!", "It`s me!"];  //props에 children을 사용하려면 붙이고, 그렇지 않다면 마지막에 사용
+      //},
+      //
+      //);
+
+      const text="props class test";
+      const text1="hello world111";
+      const titleClassName="title123";
+      const props={className: "propstitle",children: text}
+      //const element = <h1 className="title">Hello, world!</h1>
+      //const element = <h1 className={titleClassName}>{text}</h1>  //이처럼 변수로 넣어서 활용가능
+      const element2= <h1 className={titleClassName} children={text1}></h1>   //위 처럼 이렇게 사용할 수도 있다<div class=""></div>
+
+      //const element = <h1 {...props}/>;   //문법형태 확인할것
+      const element= <h1 className={props.className} children={props.children}/> //...props와 같이 JSX spread 연산자
+
+
+
+      ReactDOM.render(element, rootElement);
+      ReactDOM.render(element2, rootElement2);
+    </script>
+  </body>
+
+</html>

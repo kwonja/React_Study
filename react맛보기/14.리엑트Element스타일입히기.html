@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <style>
+    .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 300px;
+}
+
+.button2 {background-color: #008CBA;} /* Blue */
+.button3 {background-color: #f44336;} /* Red */ 
+.button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
+.button5 {background-color: #555555;} /* Black */
+  </style>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      function Button({className="",color="", style, ...rest})     //props는 그 전체를 받는것!
+      {
+        return (<button className={`button${className===""? "":` ${ className}`}${color}`} style={{fontSize : 50, backgroundColor : "pink" , ...style}} {...rest}/>); //rest안에 className 존재 하지만 ..rest에 존재하는 classname에 의해 덮어쓰기됨
+      }
+      //...style에 backgroundColor : "red"가 들어가고, backgroundColor가 덮어쓰기된다.
+      const element= <>
+      <Button style={{borderRadius : "50%"}}>Green</Button>
+      <Button className="button2"style={{borderRadius : "9px",fontSize : 20,backgroundColor : "red"}}>Blue</Button> 
+      <Button className="button3">Red</Button>
+      <Button className="button4">Gray</Button>
+      <Button className="button5">Black</Button>
+      </>   
+        ReactDOM.render(element,rootElement); 
+    //클래스네임보다 스타일이 더 우선순위가 높다.
+    </script>
+  </body>
+</html>
+
+
+<script>
+
+  // useEffect -> render가 끝난뒤
+  // update시 useEffect clean up 그후 useEffect
+  // dependency array -> 전달받은 값의 변화 있는 경우에만
+
+
+</script>

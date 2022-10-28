@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <style>
+  </style>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement=document.getElementById("root");
+      const App = () =>{
+        const inputRef = React.useRef();
+        const divRef = React.useRef();
+        React.useEffect(()=>{
+          inputRef.current.focus();
+          //document.getElementById("input").focus(); //useRef라는 레퍼런스 훅
+          setTimeout(()=>{
+            divRef.current.style.backgroundColor="red";
+          },1000
+          ) //이게 1초
+        },[]);
+        return (
+        <>
+        <input ref={inputRef} />
+        <div ref={divRef} style={{height : 100, width: 300, backgroundColor : "Blue"}}> </div>
+        </>);
+      }
+        ReactDOM.render(<App />,rootElement); 
+    </script>
+    
+  </body>
+</html>
+
+<script>
+
+  //  getElementById를 사용하지 않고 useRef를 사용 == document.get~~ 과 같은 의미
+  // 사용하는 이유는 react에서의 문법에 잘 어울려서?
+</script>

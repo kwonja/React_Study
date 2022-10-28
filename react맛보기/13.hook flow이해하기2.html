@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      const Child = () =>{
+        console.log("  child render start");
+
+        const [text,setText]= React.useState(()=>{
+          console.log("  child usestate");
+          return "";
+        })
+
+        React.useEffect(()=>{
+
+        console.log("Chlid useeffect no deps"); //모든경우에 반응
+        return () =>{
+            console.log("Chlid Cleanup no deps");                 //클린업은 해당 함수가 시작되기전에 값을 비운다. --> react가 알아서 해줌
+          }                                                       //
+        });
+        React.useEffect(()=>{
+
+        console.log("Chlid useeffect empty deps"); //모든경우에 반응
+        return () =>{
+            console.log("Chlid Cleanup empty deps");
+          }
+        },[]);
+        React.useEffect(()=>{
+
+        console.log("Chlid useeffect Text deps"); //모든경우에 반응
+        return () =>{
+            console.log("Chlid Cleanup Text deps");
+          }
+        },[text]);
+
+        function handleChange(event)
+        {
+          setText(event.target.value);
+        }
+        const element=(
+          <>
+          <input onChange={handleChange}/>
+          <p>{text}</p> 
+          </>
+        );
+        console.log("Child render end");
+        return element;
+      }
+
+      const App = () => {
+        console.log("App render start");
+        const [show, setShow]=React.useState(()=> {
+
+          console.log("APP useState");
+          return false;
+        });
+
+        // function handleClick()
+        // {
+        //   if(show === true)
+        //   {
+        //     setShow(false);
+        //   }
+        //   else{
+        //     setShow(true);
+        //   }
+        // }
+          //useEffect는 render 이후에 수정된다 -> 사이드이펙트이기때문에 다 그려진후에 수정된다.
+        React.useEffect(()=>{
+          console.log("APP useeffect empty deps"); //처음에만 반응
+          return () =>{
+            console.log("APP Cleanup empty deps");
+          }
+        }, []);
+        React.useEffect(()=>{
+
+          console.log("APP useeffect no deps"); //모든경우에 반응
+          return () =>{
+            console.log("APP Cleanup no deps");
+          }
+        });
+        React.useEffect(()=>{
+          console.log("APP useeffect show"); //배열에 준 디펜던시만 반응
+
+          return () =>{
+            console.log("APP Cleanup show deps");
+          }
+        }, [show]);
+
+        function handleClick()
+        {
+          setShow( (prev) => !prev);  //usestate는 이전값을 저장하고 있다.
+        }
+        console.log("Appp render end");
+        return (
+          <>
+          <button onClick={handleClick}>Search</button>
+          { show ? <> <Child /></> : null
+          }
+          </>
+        );
+      };
+        ReactDOM.render(<App />,rootElement); 
+    </script>
+    
+  </body>
+</html>
+
+
+<script>
+
+  // useEffect -> render가 끝난뒤
+  // update시 useEffect clean up 그후 useEffect
+  // dependency array -> 전달받은 값의 변화 있는 경우에만
+
+
+</script>

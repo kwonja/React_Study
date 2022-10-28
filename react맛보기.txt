@@ -1,0 +1,49 @@
+html css js를 기반으로 해야한다.
+
+라이브러리 vs 프레임워크
+
+
+라이브러리 : 개발의 편의를 위한 도구모음 : 공구  --> react는 여기에 속함 ----> 다양한곳에서 접목 가능
+
+프레임워크 :  개발 편의를 도와주는것은 같지만 기반 구조까지 잡혀있음 : 공장 느낌
+
+새로운 기술을 빠르게 익히는 능력이 중요하다.
+
+공식문서를 토대로 이해하면서 익히는 것이 중요하다.
+
+DOM (Document Object Model)
+
+CDN링크
+react document cdn
+
+JSX
+
+const element=<h1>Hello, world!</h1>
+
+Bable -> JSX라는것을 리엑트에서 사용하기위해 바꾸는 컴파일러
+
+JSX는 React.createElement를 쉽게 다루기 위해서 사용
+Babel은 자바스크립트로 사용하기위해 언어를 컴파일 해주는것
+
+React.createElement(component, props, ...children)
+
+component는 attribute 같은 느낌이고
+props는 className, children
+children은 props에서 써도되고, 마지막에 써도된다.
+
+Function -> 재사용 가능한 Element
+
+Custom Element-> Upper case
+children -> 제한 없음
+
+interpolation -> JS JSX를 섞어서 사용하는것을 이렇게 부름
+
+
+
+주석처리는 ctrl+? 를 하면 어디서든 가능
+
+ margin : 0 ,auto;    좌우, 상하
+
+코드를 위 아래로 왔다갔다는 alt를 누른상태로 하면 된다.
+해당 코드를 복사하고싶으면 alt+shift를 누른상태로 위아래로 움직이면 된다.
+

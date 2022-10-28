@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <style>
+  </style>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement=document.getElementById("root");
+
+      const Id= ( {handleIdChange}) => {
+        return (<>
+          <label htmlfor="id">ID: </label>
+          <input onChange={handleIdChange}/><br/>
+        </>
+        );
+      }
+      //Fragement에 함수를 전달할수 있다.   --> state의 관리를 제일 가까운 부모로 올린다 ->리프팅한다고 한다.
+      const Password= ({handlePasswordChange}) => {
+        return (<>
+        <label htmlfor="password">PW: </label>
+          <input onChange={handlePasswordChange}/>
+        </>
+        );
+      }
+      const App = () =>{
+        const [id, setId]=React.useState("");
+        const [password,setPassword]=React.useState("");
+
+        const handleIdChange = (event) => {
+          setId(event.target.value);
+          console.log(`id : ${event.target.value.length >0}`);
+        }
+        const handlePasswordChange = (event) => {
+          setPassword(event.target.value);
+          console.log(`password : ${event.target.value.length >0}`);
+        }
+        const handleLoginClick = () =>{
+          alert(` id : ${id}, pw : ${password}` );
+        };
+        return (               
+          <>
+          <form>
+          <Id handleIdChange={handleIdChange}/>
+          <Password handlePasswordChange={handlePasswordChange}/>
+          <button type="submit" disabled={ id.length ===0 || password.length ===0}onClick={handleLoginClick}>Login</button>
+          </form> 
+          </>
+        );
+      };
+      ReactDOM.render(<App />,rootElement);
+    </script>
+    
+  </body>
+</html>

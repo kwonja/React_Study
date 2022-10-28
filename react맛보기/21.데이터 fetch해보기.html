@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <style>
+  </style>
+  <body>
+    <script crossorigin crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement=document.getElementById("root");
+
+      const App = () =>{
+
+        const [data, setData]=React.useState(null);
+        const [error,setError] = React.useState(null);
+
+        React.useEffect( () =>{
+          fetch('https://raw.githubusercontent.com/techoi/rw-data-api/main/simple-api.json')
+          .then((response) => response.json())
+          .then( (data) => {
+            setData(data.data);
+
+          }).catch((error) => {setError(error.message)});  //자바스크립트에서 에러를 핸들링하는 방법
+        },[]);
+
+        if(error !=null)
+        {
+          return <p>{error}</p>
+        }
+        if(data == null)
+        {
+          return <p style={{color : "red"}}>Loading...</p>
+        }
+        return (               
+          <>
+          <p>People</p>
+          {data.people.map( (person) => (            //중괄호를 치면 fragement안에 JSX를 사용하지 못함
+            <>
+            <div>
+            <span> name : {person.name}</span>
+            <span> age : {person.age}</span>
+            </div>
+            </>
+          )
+            )}
+          </>
+        );
+      };
+      ReactDOM.render(<App />,rootElement);
+    </script>
+    
+  </body>
+</html>

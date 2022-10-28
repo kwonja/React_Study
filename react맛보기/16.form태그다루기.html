@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <style>
+  </style>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement=document.getElementById("root");
+      const App = () =>{
+        const handleSubmit = (event) =>{
+          console.dir(event.target.elements);     //form태그의 구조를 보여준다
+          event.preventDefault();
+          alert(`first name is ${event.target.elements.fname1.value} Car is ${event.target.elements.cars.value}`);
+          //form 태그 안에 있는 input에 대한 이름은 id 값에 따라간다. 그러면 name은 무슨 의미인가? 아마 서버에 보내는 이름으로 알고 있다.
+
+        };
+
+        return (<>
+        <form onSubmit={handleSubmit}>
+          <label htmlfor="fname">First name:</label><br />
+          <input type="text" id="fname1" name="fname2" defaultValue="John"/><br />
+          <label htmlfor="cars">Choose a car:</label>
+          <select id="cars" name="cars">
+            <option defaultValue="volvo">Volvo</option>
+            <option defaultValue="saab">Saab</option>
+            <option defaultValue="fiat">Fiat</option>
+            <option defaultValue="audi">Audi</option>
+            </select>
+          <input type="submit" defaultValue="Submit"/>
+        </form>
+        </>);
+      }
+      ReactDOM.render(<App />,rootElement); 
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root">
+    </div>
+    <div id ="root2"></div>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      const state={ keyword : "",typing:false, result:" "};
+      const App = () => {
+
+        function handleChange(event){
+          setState({ typing: true ,keyword: event.target.value});
+        }
+        function handleClick(event)
+        {
+          setState({
+            typing : false , result : `We find result of ${state.keyword}`
+        
+        });
+        }
+        return (
+        <>
+
+              <input onChange={handleChange} />
+              <button onClick={handleClick}>search</button>
+              <p>
+                { state.typing ? `Looking for ... ${state.keyword}` : state.result}
+                </p>    
+        </>
+        );
+
+      }
+      function setState(newState)                  //변경이 되었을때 render를 선언해줘서 순간순간 초기화를 해줘야한다.
+      {
+        console.log(state);
+        Object.assign(state,newState);  //객체 새로 쓰기
+        render();
+      }
+      function render() {
+        ReactDOM.render(<App />,rootElement); 
+      }
+      render();
+    </script>
+  </body>
+</html>
+
+<!-- onClick onMouseout onFcous onBlur   카멜케이스-->
+
+<script>
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target);
+// expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget);
+// expected output: Object { a: 1, b: 4, c: 5 }
+
+Object.assign(returnedTarget, {c: 7 , d:1})
+//target을 returnedtagrt에 할당했다 -> returnedtarget변수가 수정되면 target도 수정된다.
+console.log(returnedTarget);
+// Object { a: 1, b: 4, c: 7, d: 1 }
+console.log(target);
+// Object { a: 1, b: 4, c: 7, d: 1 }
+</script>

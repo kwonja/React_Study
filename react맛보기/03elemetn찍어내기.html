@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root">
+    </div>
+    <div id ="root2"></div>
+    <script type="text/babel">
+
+      const rootElement = document.getElementById("root");  //children에 여러개를 넣을수 있다. -> 제이슨형태로?
+      const paint = (title,description) =>(
+        <>
+
+        <h1>{title}</h1>
+        <h1>{description}</h1>
+        </>
+      )
+      const Paint = ({title,description,children}) =>(
+        <>
+
+        <h1>{title}</h1>
+        <h1>{description}</h1>
+        {children}
+        </>
+      )
+      //Paint 같은 경우 react에서 제공 맨 앞에는 대문자를 사용해야함.  {title,description}을 props처럼  사용
+      //대문자는 기존 소문자 태그와 구별하기위해서 react에서 그렇게 하라고 하는것
+      // const element = (<>
+      //    <Paint title="Good" description="good">
+          
+      //     <h1>hi</h1> 
+      //     <h1>hi</h1>
+      //     <h1>hi</h1>
+      //     <h1>hi</h1>
+      //     </Paint>
+      //    {paint("bad", "you are")}
+      // </>
+      // )
+    //children 부분에는 어떤것들이 들어가도 상관없고,여러개가 들어가도된다.
+
+    const Good = () => <h3>Good</h3>                  //어떤 변수를 쓰려면 {}안에 넣어야한다.
+    const element = (<>
+         <Paint title="Good" description="good"> {Good()}</Paint>
+          <Paint title="Bad" description="bad"/>
+          <Paint title="Bad" description="bad"/>
+      </>
+      )
+      //Paint 태그안에 paint태그를 넣어도 childern으로 하위로 가는게 아니라 sibling으로 들어감
+        ReactDOM.render(element,rootElement);
+    </script>
+  </body>
+
+</html>

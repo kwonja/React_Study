@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>         <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  <!-- React를 사용하기위한 링크-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>      <!-- Babel 컴파일러를 사용하기위한 링크-->
+    <div id="root">
+    </div>
+    <div id ="root2"></div>
+    <script type="text/babel">
+
+      const rootElement = document.getElementById("root");  //children에 여러개를 넣을수 있다. -> 제이슨형태로?
+
+
+      /*프론트 엔드 개발의 장점?
+        눈에 보인다.
+        눈으로 바로확인할수 있다.
+        google / MDN / console
+
+        MDN Web Docs는 CSS, HTML, JavaScript 등 웹 기술과 웹의 기반 소프트웨어를 배울 수 있는, 계속해서 발전하는 학습 플랫폼입니다.
+
+      */
+        ReactDOM.render(element,rootElement);
+    </script>
+  </body>
+
+</html>

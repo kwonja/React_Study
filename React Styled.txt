@@ -1,0 +1,63 @@
+css in js
+대형프로젝트에 쓰일때 사용된다.
+
+컴퍼넌트랑 css을 일치시키기 위해 만든것
+컴퍼넌트별개로 css가 모든 컴퍼넌트에 적용되는 문제가 기존 React에 존재한다.
+
+설치방법!
+
+# with npm
+npm install --save styled-components
+
+# with yarn
+yarn add styled-components
+
+버튼 스타일링 태그도 기존 버튼태그처럼 원클릭 이벤트를 사용할수 있다.
+
+Extending Styles
+
+스타일을 상속받아 사용할수 있다. 색만바꾸기에 용이하다.
+
+스타일을 style 태그로 분리했다.
+styled.{element} 형태로 사용``
+상속받으려면 styled.(스타일태그이름)``
+
+
+&는  Thing태그 자신
+color: blue;
+
+  &:hover {
+    color: red; // <Thing> when hovered
+  }
+
+  & ~ & {
+    background: tomato; // <Thing> as a sibling of <Thing>, but maybe not directly next to it
+  }
+
+  & + & {
+    background: lime; // <Thing> next to <Thing>
+  }
+
+  &.something {
+    background: orange; // <Thing> tagged with an additional CSS class ".something"
+  }
+
+  .something-else & {
+    border: 1px solid; // <Thing> inside another element labeled ".something-else"
+  }
+`
+스타일 순서도 중요하다.
+
+
+div p	Selects all <p> elements inside <div> elements
+div > p	Selects all <p> elements where the parent is a <div> element
+
+
+
+//////emotion
+
+프래그먼트는 앞에 무조건 대문자로 선언해줘야한다.
+
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
+리엑트에서 선언할대는 위에것을 사용

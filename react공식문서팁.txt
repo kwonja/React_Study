@@ -1,0 +1,123 @@
+JSX는 중괄호안에 JS를 품을수 있다.
+element의 집합은 컴퍼넌트라고 할수 있다.
+
+마운트,언마운트,deps에 특정값넣기(업데이트)deps에 들어있는 값이바뀔때 호출된다.
+
+useEffect가 return하는 값은 클린업이라고
+뒷정리를하는 느낌으로 deps가 비어있는경우에는 컴포넌트가 사라질때 클린업함수가 호출됩니다.
+
+class컴포넌트에서만 state를 관리했지만, 이제는 useEffect같은 훅이 있어서 state를 관리할수 있게 되었다.
+
+상태를 가져올때 함수로 가져와야한다.
+바로 가져오게된다면 업데이트 순서가 안맞을수도 있음
+
+생성되고 사라지는 주기를 생명주기(life cycle)이라고 부른다.
+constructor -> render -> didMount ->didupdate -> willunmount
+
+//이벤트 처리
+
+이벤트는 SyntheticEvent로 많은 내용을 가지고 있는 객체를 받는다.
+-->합성 이벤트(인터페이스는 같지만 직접 대응되지 않음)
+e.preventDefault();로 클릭시 새로고침되는 기본동작을 막는다.
+(html 에서는 onsubmit을 이벤트로 주는 함수에서 return false를 해줘야한다고 한다)
+
+버플링 -> 컴퍼넌트 클릭 -> 그 부모로 이 이벤트를 계속 전달
+
+캡쳐 -> 부모가 자식들중에 누가 클릭이 되었는가 체크하는과정
+
+기본 이벤트헨들러들은 버플링단계에서 실행된다.
+캡쳐링할때 쓰고싶으면 capture를 붙여서 사용
+
+//조건부 렌더링
+
+{unreadMessages.length > 0 &&
+        <h2>
+          You have {unreadMessages.length} unread messages.
+        </h2>
+      }
+앞에가 true이면 &&바로 오른쪽에 있는 값을 출력
+0면 <div>0</div>처럼 거짓표현식을 반환하는 점을 주의!(falsy)
+false로 반환되야 거짓표현식 없이 실행
+Boolean으로 0을 false로 바꿔주면 사용가능
+
+차라리 삼항연산자로 return null을 하게되면 아무것도 안그릴수 있다.
+
+//리스트
+
+엘리먼트 모음에 {}을 이용하여 JSX에 포함시킬수 있다.
+리스트에 key를 제공하지 않으면 경고표시가 나타남.
+키는 React가 변경, 추가 또는 제거된 항목을 식별하는 데 도움이 됩니다.
+key는 고유성을 가짐
+
+안정적인 ID가 없으면 index사용
+key값이 없다고 실행이 안되는것이 아니다. warning 발생
+키는 형제간에만 고유하면 다른곳에 똑같이 사용해도 상관없다.
+
+//form다루기
+controlled ->onClick, onChange
+uncontrolled -> Ref
+
+defaultValue: input tag에서 처음 보여줄 값
+value: input tag에서 계속 보여줄 값
+
+공식문서 읽기를 통해 리엑트 반복숙달이 좋다.
+props는 수정이 안된다 -> 수정하고싶다면 state를 이용
+
+Capture < target <Bubble
+default키는 react에서 기본적으로 index를 쓰지만 warning이 뜬다.
+재배치를 사용하려면 키를 지정해줘야 찾을수 있다.
+key는 props로 넘어가지 않음
+
+//hook
+훅은 state바로아래, 최상위에 써야한다.
+함수 컴포넌트에만 사용할수 있다.
+useState 역시 hook!
+var fruitStateVariable = useState('banana'); // Returns a pair
+  var fruit = fruitStateVariable[0]; // First item in a pair
+  var setFruit = fruitStateVariable[1];
+이런식으로 사용도 가능하다.
+
+데이터 가져오기, 구독 설정 및 React 구성 요소에서 DOM을 수동으로 변경하는 것은 모두 side effect의 예입니다
+useeffect에서 빈 배열도 주지않으면, 마운트될때,state가 업데이트 될때도, props가 업데이트됬을때도 온다.(didmount + didupdate)  willunmount는 return으로 cleanup 해주면된다.
+빈배열을 주게되면, 처음 마운트될 때에만 실행이 된다.
+
+배열안에 변수를 주면 변수가 바뀔때만 update를 할수있어, 최적화를 할수 있다.
+
+class보다 좋은점은? 표현을 하나로 합치고 버그를 고쳤다.
+
+useLayoutEffect useEffect를 사용하는데  잘 안되면 한번 봐볼것
+모든 dom실행이 끝나고 실행된다.
+커스텀훅은 재사용성을 늘려준다.
+
+
+//composition
+상속보단 합성으로 진행해야한다.
+Dialog 컴포넌트도 있음
+
+컴포넌트아래 컴포넌트 합성하기가능
+근데 그냥은 쓸수없어서 props를 통해 자식인지를 알려줘야함
+WelcomDialog는 Dialog의 특수한 경우이다.
+
+컴포넌트에 다른 컴포넌트를 담기(children /custom )
+일반 컴포넌트는 특수 컴포넌트의 값을 props.children을 통해 연결시켜줄수 있다.
+
+compostion으로 확장성을 늘릴수 있다.
+
+
+//라우터,Link
+페이지 새로고침없이 비동기식으로 link로 해줘야한다.Link에 연결할 주소를 주고
+라우트를 통해 연결,
+HashRouter를 사용하면 #처럼 북마크효과가 나타나는데 웹서버 입장에서는 #뒤를 무시한다.
+
+NavLink link의 기능에서 조금더 추가된것
+NavLink를 클릭한링크에 active라는 클래스가 생성된다.-> 모든 link에 연결된다는 단점이 있음!
+
+useEffect 는 함수가 렌더링후에 실행된다.
+
+
+usestate초기값은 함수가 다시선언되는게아니면 처음때 그대로다.
+함수에서 전송버튼을 누르게되면 선언된 함수는 다 사라진다.
+가장 상위에 있는 함수(컴포넌트)만 재 선언됨.
+
+
+Portal을 통해 튀어나오는 효과인 모달창 같은 효과를 불러낼수 있다.
